@@ -24,7 +24,7 @@ class LaravelLogstashServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->package('tieday/laravel-logstash', 'laravel-logstash');
+        $this->package('naux/laravel-logstash', 'laravel-logstash');
 
         $cacheStore = $this->app->make('cache.store')->getStore();
 
