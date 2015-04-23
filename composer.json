@@ -1,7 +1,6 @@
 {
-    "name": "tieday/laravel-logstash",
+    "name": "naux/laravel-logstash",
     "description": "A simple service provider for piping logs to logstash",
-    "version": "0.1",
     "authors": [
         {
             "name": "Karl Laurentius Roos",
@@ -10,7 +9,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.1.*"
+        "illuminate/support": "4.2.*"
     },
     "autoload": {
         "psr-0": {
