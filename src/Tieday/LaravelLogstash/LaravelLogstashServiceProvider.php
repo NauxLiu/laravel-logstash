@@ -28,16 +28,11 @@ class LaravelLogstashServiceProvider extends ServiceProvider
 
         $cacheStore = $this->app->make('cache.store')->getStore();
 
-<<<<<<< HEAD
         $cacheStore->setConnection(Config::get('laravel-logstash::redis_connection'));
 
         if ($cacheStore instanceof \Illuminate\Cache\RedisStore) {
             $redisClient = $this->app->make('cache.store')->getStore()->connection();
-=======
-        if ($cacheStore instanceof \Illuminate\Cache\RedisStore) {
-            $redisClient = $this->app->make('cache.store')->getStore()->connection();
 
->>>>>>> 1681d46774566eacb324b3b928e474e0cbc0138d
             $redisHandler = new RedisHandler($redisClient, Config::get('laravel-logstash::redis_key'));
             $formatter = new LogstashFormatter(Config::get('laravel-logstash::application_name'));
             $redisHandler->setFormatter($formatter);

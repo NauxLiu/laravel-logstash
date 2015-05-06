@@ -22,12 +22,8 @@ return [
     |
     */
 
-<<<<<<< HEAD
     'redis_key' => 'phplogs',
 
     'redis_connection' => 'default'
-=======
-    'redis_key' => 'phplogs'
->>>>>>> 1681d46774566eacb324b3b928e474e0cbc0138d
 
 ];
