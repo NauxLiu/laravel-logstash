@@ -32,7 +32,7 @@ return [
     | The redis connection that logstash uses to.
     |
     */
-    'redis_connection' => 'default'
+    'redis_connection' => 'default',
     
     /*
     |--------------------------------------------------------------------------
