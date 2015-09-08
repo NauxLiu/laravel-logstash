@@ -1,6 +1,7 @@
 <?php
 namespace Tieday\LaravelLogstash;
 
+use Illuminate\Cache\RedisStore;
 use Monolog\Logger;
 use Monolog\Handler\RedisHandler;
 use Monolog\Formatter\LogstashFormatter;
@@ -26,19 +27,24 @@ class LaravelLogstashServiceProvider extends ServiceProvider
     {
         $this->package('naux/laravel-logstash', 'laravel-logstash');
 
+        $redis_connection = Config::get('laravel-logstash::redis_connection');
+        $environment_tag = Config::get('laravel-logstash::environment_tag');
+
         $cacheStore = $this->app->make('cache.store')->getStore();
 
-        $cacheStore->setConnection(Config::get('laravel-logstash::redis_connection'));
+        $cacheStore->setConnection($redis_connection);
 
-        if ($cacheStore instanceof \Illuminate\Cache\RedisStore) {
+        if ($cacheStore instanceof RedisStore) {
+            $redis_key = Config::get('laravel-logstash::redis_key');
+            $application_name = Config::get('laravel-logstash::application_name');
+
             $redisClient = $this->app->make('cache.store')->getStore()->connection();
-
-            $redisHandler = new RedisHandler($redisClient, Config::get('laravel-logstash::redis_key'));
-            $formatter = new LogstashFormatter(Config::get('laravel-logstash::application_name'));
+            $redisHandler = new RedisHandler($redisClient, $redis_key);
+            $formatter = new LogstashFormatter($application_name);
             $redisHandler->setFormatter($formatter);
 
             $logger = new Writer(
-                new Logger($this->app['env'], [$redisHandler])
+                new Logger($environment_tag, [$redisHandler])
             );
         } else {
             $logger = new Writer(
